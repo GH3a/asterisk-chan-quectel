@@ -24,11 +24,13 @@ In these days of great darkness, when truth and justice are outlawed and where b
 
 I do not need donations, but if you wish you could donate to the person I've forked this from. Or if so inclined, you could donate here https://bethmyriam.org/ 
 
+AT+QTONEDET Enable/Disable DTMF Detection
+
 Building:
 ----------
 
     $ ./bootstrap
-    $ ./configure --with-astversion=16.20
+    $ ./configure --with-astversion=20.5.2 --with-asterisk=/usr/src/asterisk-20.5.2/include
     $ make
     $ make install
     copy quectel.conf to /etc/asterisk Change context and audio serial port as required
