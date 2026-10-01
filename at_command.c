@@ -126,6 +126,8 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 	static const char cmd13[] = "AT+COPS=0,0\r";
 	static const char cmd14[] = "AT+CREG=2\r";
 	static const char cmd15[] = "AT+CREG?\r";
+	static const char cmd14e[] = "AT+CEREG=2\r";
+	static const char cmd15e[] = "AT+CEREG?\r";
 	static const char cmd16[] = "AT+CNUM\r";
 
 	static const char cmd17[] = "AT+QPCMV?\r";
@@ -158,6 +160,8 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 
 		ATQ_CMD_DECLARE_STI(CMD_AT_CREG_INIT,cmd14),	/* GSM registration status setting */
 		ATQ_CMD_DECLARE_ST(CMD_AT_CREG, cmd15),		/* GSM registration status */
+		ATQ_CMD_DECLARE_STI(CMD_AT_CEREG_INIT, cmd14e), /* LTE registration unsolicited */
+		ATQ_CMD_DECLARE_ST(CMD_AT_CEREG, cmd15e),	/* LTE/EPS registration status */
 		ATQ_CMD_DECLARE_STI(CMD_AT_CNUM_GET, cmd25),
 		ATQ_CMD_DECLARE_STI(CMD_AT_CNUM, cmd16),		/* Get Subscriber number */
 		ATQ_CMD_DECLARE_STI(CMD_AT_CVOICE, cmd17),	/* read the current voice mode, and return sampling rate、data bit、frame period */

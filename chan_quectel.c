@@ -445,6 +445,7 @@ static void disconnect_quectel (struct pvt* pvt)
 		/* unaffected in case of restart */
 		pvt->use_ucs2_encoding = 0;
 		pvt->gsm_reg_status = -1;
+		pvt->eps_reg_status = -1;
 		pvt->rssi = 0;
 		pvt->linkmode = 0;
 		pvt->linksubmode = 0;
@@ -461,6 +462,7 @@ static void disconnect_quectel (struct pvt* pvt)
 		pvt->sms_scenter[0] = '\0';
 
 		pvt->gsm_registered	= 0;
+		pvt->eps_registered	= 0;
 		pvt->has_sms = 0;
 		pvt->has_voice = 0;
 		pvt->has_call_waiting = 0;
@@ -1129,7 +1131,7 @@ EXPORT_DEF int ready4voice_call(const struct pvt* pvt, const struct cpvt * curre
 	if(!pvt->connected
 		|| !pvt->initialized
 		|| !pvt->has_voice
-		|| !pvt->gsm_registered
+		|| !(pvt->gsm_registered || pvt->eps_registered)
 		|| !pvt_enabled(pvt)) {
 		return 0;
 	}
@@ -1431,7 +1433,9 @@ static const char * pvt_state_base(const struct pvt * pvt)
 		state = "Not connected";
 	else if(!pvt->initialized)
 		state = "Not initialized";
-	else if(!pvt->gsm_registered)
+	else if(pvt->eps_registered && !pvt->gsm_registered)
+		state = "LTE registered";
+	else if(!pvt->gsm_registered && !pvt->eps_registered)
 		state = "GSM not registered";
 	return state;
 }
